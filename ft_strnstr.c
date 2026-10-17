@@ -1,41 +1,35 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alnour <alnour@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/10/15 17:26:39 by alnour            #+#    #+#             */
+/*   Updated: 2026/10/16 19:33:21 by alnour           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	*ft_strnstr(const char *str, const char *par, const size_t *len)
+#include "libft.h"
+
+char	*ft_strnstr(const char *str, const char *par, size_t len)
 {
-	int i;
-	int	par_len;
-	int	start;
-	int j;
+	size_t	i;
+	size_t	j;
 
-	j = 0;
-	start = 0;
 	i = 0;
-	par_len = 0;
-	if (len == 0)
-		return (str);
-	while (par[par_len] != '\0')
-		par_len++;
-	while (i != len)
+	if (par[0] == '\0')
+		return ((char *)str);
+	while (i < len && str[i] != '\0')
 	{
 		j = 0;
-		start = i;
-		while (str[i] == par[j])
+		while (str[i + j] == par[j] && (i + j) < len)
 		{
+			if (par[j + 1] == '\0')
+				return ((char *)&str[i]);
 			j++;
-			i++;
 		}
-		if (par[j] == '\0')
-			return (str[start]);
 		i++;
 	}
 	return (NULL);
-}
-
-int	main()
-{
-	char *str = "hi ali";
-	char *pi = "li";
-	const size_t p = 7;
-	char  *s = ft_strnstr(str,pi,p);
-	printf ("%d", s);
 }
